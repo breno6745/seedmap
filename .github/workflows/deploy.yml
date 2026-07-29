@@ -39,7 +39,7 @@ jobs:
           mkdir -p dist
           cp -R public/. dist/
 
-          emcc             src/cubiomes_wrapper.c             cubiomes/generator.c             cubiomes/layers.c             cubiomes/biomes.c             cubiomes/biomenoise.c             cubiomes/noise.c             cubiomes/finders.c             cubiomes/util.c             -I cubiomes             -O3             -fwrapv             -s WASM=1             -s MODULARIZE=1             -s EXPORT_NAME=createCubiomesModule             -s ENVIRONMENT=web             -s ALLOW_MEMORY_GROWTH=1             -s FILESYSTEM=0             -s EXPORTED_FUNCTIONS='["_malloc","_free","_set_seed","_fill_biomes","_biome_at","_get_structure_region_size","_get_structure","_fill_strongholds"]'             -s EXPORTED_RUNTIME_METHODS='["HEAP32"]'             -o dist/cubiomes.js
+          emcc             src/cubiomes_wrapper.c             cubiomes/generator.c             cubiomes/layers.c             cubiomes/biomes.c             cubiomes/biomenoise.c             cubiomes/noise.c             cubiomes/finders.c             cubiomes/util.c             -I cubiomes             -O3             -fwrapv             -s WASM=1             -s MODULARIZE=1             -s EXPORT_NAME=createCubiomesModule             -s ENVIRONMENT=web             -s ALLOW_MEMORY_GROWTH=1             -s FILESYSTEM=0             -s EXPORTED_FUNCTIONS='["_malloc","_free","_set_seed","_fill_biomes","_biome_at","_get_structure_region_size","_get_structure","_fill_strongholds","_get_world_spawn"]'             -s EXPORTED_RUNTIME_METHODS='["HEAP32"]'             -o dist/cubiomes.js
 
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
