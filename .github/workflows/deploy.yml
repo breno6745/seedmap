@@ -41,29 +41,42 @@ jobs:
 
           emcc             src/cubiomes_wrapper.c             cubiomes/generator.c             cubiomes/layers.c             cubiomes/biomes.c             cubiomes/biomenoise.c             cubiomes/noise.c             cubiomes/finders.c             cubiomes/util.c             -I cubiomes             -O3             -fwrapv             -s WASM=1             -s MODULARIZE=1             -s EXPORT_NAME=createCubiomesModule             -s ENVIRONMENT=web             -s ALLOW_MEMORY_GROWTH=1             -s FILESYSTEM=0             -s EXPORTED_FUNCTIONS='["_malloc","_free","_set_seed","_fill_biomes","_biome_at","_get_structure_region_size","_get_structure","_fill_strongholds","_get_world_spawn","_fill_mineshafts"]'             -s EXPORTED_RUNTIME_METHODS='["HEAP32"]'             -o dist/cubiomes.js
 
-
-
-      - name: Baixar ícones abertos do Tabler Icons
+      - name: Baixar texturas PNG do Minecraft 1.8
         shell: bash
         run: |
-          git clone --depth 1 https://github.com/tabler/tabler-icons.git tabler-icons
           mkdir -p dist/icons
 
-          copy_icon() {
-            local source_name="$1"
+          BASE="https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.8.8/assets/minecraft/textures"
+
+          download_texture() {
+            local remote_path="$1"
             local target_name="$2"
-            cp "tabler-icons/icons/outline/${source_name}.svg" \
-               "dist/icons/${target_name}.svg"
+
+            curl --fail --location --retry 3 \
+              "${BASE}/${remote_path}" \
+              --output "dist/icons/${target_name}"
           }
 
-          copy_icon "building-community" "village"
-          copy_icon "pyramid" "desert-temple"
-          copy_icon "trees" "jungle-temple"
-          copy_icon "home-search" "witch-hut"
-          copy_icon "building-castle" "monument"
-          copy_icon "eye" "stronghold"
-          copy_icon "pick" "mineshaft"
-          copy_icon "star" "spawn"
+          # Vila: esmeralda
+          download_texture "items/emerald.png" "village.png"
+
+          # Templo do deserto: arenito
+          download_texture "blocks/sandstone_normal.png" "desert-temple.png"
+
+          # Templo da selva: pedregulho com musgo
+          download_texture "blocks/cobblestone_mossy.png" "jungle-temple.png"
+
+          # Cabana de bruxa: caldeirão
+          download_texture "items/cauldron.png" "witch-hut.png"
+
+          # Monumento oceânico: prismarinho
+          download_texture "blocks/prismarine_rough.png" "monument.png"
+
+          # Mina abandonada: trilho
+          download_texture "blocks/rail_normal.png" "mineshaft.png"
+
+          # Spawn: bússola
+          download_texture "items/compass.png" "spawn.png"
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
