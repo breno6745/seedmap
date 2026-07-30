@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Seed Map Java 1.8 executado localmente com Cubiomes WebAssembly">
+  <title>Seed Map Java 1.8</title>
+  <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <strong>Seed Map Java 1.8</strong>
+    <small>Cubiomes WebAssembly</small>
+  </div>
+
+  <div class="seedbar">
+    <label for="seedInput">Seed</label>
+    <input id="seedInput" type="text" spellcheck="false">
+    <button id="applySeed" type="button">Aplicar</button>
+  </div>
+</header>
+
+<main>
+  <section id="mapArea">
+    <canvas id="mapCanvas"></canvas>
+
+    <div class="zoom">
+      <button id="zoomIn" type="button" title="Aumentar zoom">+</button>
+      <button id="zoomOut" type="button" title="Diminuir zoom">−</button>
+      <button id="home" type="button" title="Voltar ao 0,0">⌂</button>
+    </div>
+
+    <div id="status">Inicializando Cubiomes…</div>
+    <div id="loading">Carregando WebAssembly…</div>
+  </section>
+
+  <aside>
+    <h2>Camadas</h2>
+    <label><input id="showGrid" type="checkbox"> Grade de chunks</label>
+    <label><input id="showStructures" type="checkbox" checked> Estruturas</label>
+
+    <h2>Estruturas</h2>
+    <label><input class="structure" data-type="village" type="checkbox" checked> <img src="markers/mc-village-v3.png" alt=""> Vilas</label>
+    <label><input class="structure" data-type="desert" type="checkbox" checked> <img src="markers/mc-desert-temple-v3.png" alt=""> Templos do deserto</label>
+    <label><input class="structure" data-type="jungle" type="checkbox" checked> <img src="markers/mc-jungle-temple-v3.png" alt=""> Templos da selva</label>
+    <label><input class="structure" data-type="witch" type="checkbox" checked> <img src="markers/mc-witch-hut-v3.png" alt=""> Cabanas de bruxa</label>
+    <label><input class="structure" data-type="monument" type="checkbox" checked> <img src="markers/mc-monument-v3.png" alt=""> Monumentos</label>
+    <label><input class="structure" data-type="mineshaft" type="checkbox"> <img src="markers/mc-mineshaft-v3.png" alt=""> Minas abandonadas</label>
+
+    <h2>Cursor</h2>
+    <div id="cursor">X 0, Z 0</div>
+    <div id="biome">Bioma: —</div>
+
+    <h2>Legenda</h2>
+    <div id="legend"></div>
+
+    <p class="notice">
+      Biomas e estruturas são calculados localmente pela biblioteca Cubiomes,
+      configurada para Minecraft Java 1.8. O site não consulta APIs externas
+      depois de publicado.
+    </p>
+  </aside>
+</main>
+
+<script src="cubiomes.js?v=7"></script>
+<script src="script.js?v=7"></script>
+</body>
+</html>
