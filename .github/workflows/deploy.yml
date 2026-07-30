@@ -69,14 +69,14 @@ jobs:
           # Cabana de bruxa: caldeirão
           download_texture "items/cauldron.png" "mc-witch-hut-v3.png"
 
-          # Monumento oceânico: prismarinho
-          download_texture "blocks/prismarine_rough.png" "mc-monument-v3.png"
+          # Monumento oceânico: prismarinho escuro estático
+          download_texture "blocks/prismarine_dark.png" "mc-monument-v4.png"
 
           # Mina abandonada: trilho
           download_texture "blocks/rail_normal.png" "mc-mineshaft-v3.png"
 
-          # Spawn: bússola
-          download_texture "items/compass.png" "mc-spawn-v3.png"
+          # Spawn: cama estática
+          download_texture "items/bed.png" "mc-spawn-v4.png"
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
