@@ -44,7 +44,7 @@ jobs:
       - name: Baixar texturas PNG do Minecraft 1.8
         shell: bash
         run: |
-          mkdir -p dist/icons
+          mkdir -p dist/markers
 
           BASE="https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.8.8/assets/minecraft/textures"
 
@@ -54,29 +54,29 @@ jobs:
 
             curl --fail --location --retry 3 \
               "${BASE}/${remote_path}" \
-              --output "dist/icons/${target_name}"
+              --output "dist/markers/${target_name}"
           }
 
           # Vila: esmeralda
-          download_texture "items/emerald.png" "village.png"
+          download_texture "items/emerald.png" "mc-village-v3.png"
 
           # Templo do deserto: arenito
-          download_texture "blocks/sandstone_normal.png" "desert-temple.png"
+          download_texture "blocks/sandstone_normal.png" "mc-desert-temple-v3.png"
 
           # Templo da selva: pedregulho com musgo
-          download_texture "blocks/cobblestone_mossy.png" "jungle-temple.png"
+          download_texture "blocks/cobblestone_mossy.png" "mc-jungle-temple-v3.png"
 
           # Cabana de bruxa: caldeirão
-          download_texture "items/cauldron.png" "witch-hut.png"
+          download_texture "items/cauldron.png" "mc-witch-hut-v3.png"
 
           # Monumento oceânico: prismarinho
-          download_texture "blocks/prismarine_rough.png" "monument.png"
+          download_texture "blocks/prismarine_rough.png" "mc-monument-v3.png"
 
           # Mina abandonada: trilho
-          download_texture "blocks/rail_normal.png" "mineshaft.png"
+          download_texture "blocks/rail_normal.png" "mc-mineshaft-v3.png"
 
           # Spawn: bússola
-          download_texture "items/compass.png" "spawn.png"
+          download_texture "items/compass.png" "mc-spawn-v3.png"
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
