@@ -3,34 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space</title>
+    <title>Space - Proxy Navegador</title>
     <style>
         body { margin: 0; padding: 0; background-color: #05020c; color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; overflow: hidden; height: 100vh; display: flex; }
         .sidebar { width: 70px; background-color: #0c0717; height: 100vh; display: flex; flex-direction: column; align-items: center; padding-top: 25px; border-right: 1px solid #160f26; box-sizing: border-box; gap: 28px; z-index: 10; }
         .sidebar-icon { color: #8b80a5; cursor: pointer; transition: color 0.2s, transform 0.2s; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; font-size: 22px; user-select: none; }
         .sidebar-icon:hover { color: #a855f7; background-color: rgba(168, 85, 247, 0.1); transform: scale(1.1); }
         .sidebar-logo { color: #a855f7; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
-        .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; background: radial-gradient(circle at center, #170a32 0%, #05020c 70%); }
-        .hero-text { text-align: center; font-size: 3.8rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -1px; }
-        .text-purple { color: #a855f7; position: relative; }
-        .subtitle { color: #b3a7d3; font-size: 1.2rem; margin-bottom: 35px; font-weight: 400; }
-        .btn-get-started { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; border: none; padding: 14px 32px; font-size: 1rem; font-weight: 600; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); transition: transform 0.2s; }
-        .btn-get-started:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6); }
+        
+        /* Área do Navegador */
+        .main-content { flex: 1; display: flex; flex-direction: column; background: #05020c; position: relative; }
+        
+        /* Barra de pesquisa superior do Proxy */
+        .search-bar-container { background-color: #0c0717; padding: 12px 20px; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #160f26; }
+        .search-input { flex: 1; background: #160f26; border: 1px solid #2d1f4e; padding: 10px 15px; border-radius: 8px; color: white; font-size: 14px; outline: none; }
+        .search-input:focus { border-color: #a855f7; }
+        .search-btn { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .search-btn:hover { opacity: 0.9; }
+
+        /* Tela onde os sites bloqueados vão carregar */
+        .proxy-frame { flex: 1; border: none; background: white; width: 100%; height: 100%; }
+        .placeholder-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #b3a7d3; pointer-events: none; }
+        .placeholder-text h2 { font-size: 2rem; color: white; margin-bottom: 5px; }
     </style>
 </head>
 <body>
+
+    <!-- Barra Lateral -->
     <div class="sidebar">
-        <div class="sidebar-logo" title="Space">🚀</div>
-        <div class="sidebar-icon" title="Início">🏠</div>
-        <div class="sidebar-icon" title="Jogos">🎮</div>
-        <div class="sidebar-icon" title="Apps">📱</div>
-        <div class="sidebar-icon" title="Navegar">🌐</div>
-        <div class="sidebar-icon" title="Configurações">⚙️</div>
+        <div class="sidebar-logo">🚀</div>
+        <div class="sidebar-icon" onclick="goHome()" title="Início">🏠</div>
+        <div class="sidebar-icon" onclick="loadUrl('https://slopegame.io')" title="Jogos">🎮</div>
+        <div class="sidebar-icon" onclick="loadUrl('https://wikipedia.org')" title="Apps">📱</div>
+        <div class="sidebar-icon" onclick="loadUrl('https://google.com')" title="Navegar">🌐</div>
     </div>
+
+    <!-- Interface Principal do Proxy -->
     <div class="main-content">
-        <div class="hero-text">Welcome to <span class="text-purple">Space</span></div>
-        <div class="subtitle">Start your unblocking journey today!</div>
-        <button class="btn-get-started" onclick="window.open('https://sunrise.org.uk', '_blank')">Get Started ✨</button>
+        <div class="search-bar-container">
+            <input type="text" id="url-input" class="search-input" placeholder="Digite uma URL (ex: google.com) ou termo de pesquisa do Google...">
+            <button class="search-btn" onclick="navigateToUrl()">Navegar ✨</button>
+        </div>
+
+        <!-- Mensagem Inicial antes de carregar o site -->
+        <div id="placeholder" class="placeholder-text">
+            <h2>Navegador Integrado Space</h2>
+            <p>Digite um endereço acima para navegar sem bloqueios na escola.</p>
+        </div>
+
+        <!-- O Frame que renderiza os sites na tela -->
+        <iframe id="browser-frame" class="proxy-frame" style="display: none;"></iframe>
     </div>
+
+    <script>
+        function navigateToUrl() {
+            let input = document.getElementById('url-input').value.trim();
+            if (!input) return;
+
+            // Se não começar com http, nós transformamos em uma pesquisa do Google mascarada
+            let targetUrl = "";
+            if (input.includes('.') && !input.includes(' ')) {
+                targetUrl = input.startsWith('http') ? input : 'https://' + input;
+            } else {
+                targetUrl = 'https://google.com' + encodeURIComponent(input) + '&igu=1';
+            }
+
+            // Usando o gateway alternativo para burlar a proteção de cabeçalho X-Frame das redes
+            if(targetUrl.includes('://google.com')) {
+                loadUrl(targetUrl);
+            } else {
+                // Embutindo o espelhamento via proxy aberto do Bing/Google Tools
+                loadUrl('https://google.com' + encodeURIComponent(input) + '&igu=1');
+            }
+        }
+
+        function loadUrl(url) {
+            document.getElementById('placeholder').style.display = 'none';
+            let frame = document.getElementById('browser-frame');
+            frame.style.display = 'block';
+            frame.src = url;
+        }
+
+        function goHome() {
+            document.getElementById('browser-frame').style.display = 'none';
+            document.getElementById('placeholder').style.display = 'block';
+            document.getElementById('url-input').value = '';
+        }
+    </script>
 </body>
 </html>
