@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #05020c; color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; overflow: hidden; height: 100vh; display: flex; }
+        .sidebar { width: 70px; background-color: #0c0717; height: 100vh; display: flex; flex-direction: column; align-items: center; padding-top: 25px; border-right: 1px solid #160f26; box-sizing: border-box; gap: 28px; z-index: 10; }
+        .sidebar-icon { color: #8b80a5; cursor: pointer; transition: color 0.2s, transform 0.2s; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; font-size: 22px; user-select: none; }
+        .sidebar-icon:hover { color: #a855f7; background-color: rgba(168, 85, 247, 0.1); transform: scale(1.1); }
+        .sidebar-logo { color: #a855f7; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
+        .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; background: radial-gradient(circle at center, #170a32 0%, #05020c 70%); }
+        .hero-text { text-align: center; font-size: 3.8rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -1px; }
+        .text-purple { color: #a855f7; position: relative; }
+        .subtitle { color: #b3a7d3; font-size: 1.2rem; margin-bottom: 35px; font-weight: 400; }
+        .btn-get-started { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; border: none; padding: 14px 32px; font-size: 1rem; font-weight: 600; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); transition: transform 0.2s; }
+        .btn-get-started:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6); }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo" title="Space">🚀</div>
+        <div class="sidebar-icon" title="Início">🏠</div>
+        <div class="sidebar-icon" title="Jogos">🎮</div>
+        <div class="sidebar-icon" title="Apps">📱</div>
+        <div class="sidebar-icon" title="Navegar">🌐</div>
+        <div class="sidebar-icon" title="Configurações">⚙️</div>
+    </div>
+    <div class="main-content">
+        <div class="hero-text">Welcome to <span class="text-purple">Space</span></div>
+        <div class="subtitle">Start your unblocking journey today!</div>
+        <button class="btn-get-started" onclick="window.open('https://sunrise.org.uk', '_blank')">Get Started ✨</button>
+    </div>
+</body>
+</html>
